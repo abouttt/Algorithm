@@ -1,13 +1,11 @@
-#include <algorithm>
-#include <cmath>
-#include <cstring>
 #include <iostream>
-#include <numeric>
-#include <map>
-#include <queue>
+#include <algorithm>
 #include <vector>
+#include <map>
 #include <stack>
+#include <queue>
 #include <string>
+#include <cstring>
 
 using namespace std;
 using ll = long long;
@@ -18,7 +16,6 @@ int main()
 	FAST_IO;
 
 	int n, m, j, ret = 0;
-
 	cin >> n >> m >> j;
 
 	int lt = 1;
