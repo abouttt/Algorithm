@@ -28,37 +28,30 @@ int main()
 		stack<char> stk;
 		for (int i = 0; i < s.size(); i++)
 		{
-			if (s[i] == '(')
+			if (!(s[i] == '(' || s[i] == ')' || s[i] == '[' || s[i] == ']'))
 			{
-				stk.push('(');
+				continue;
 			}
-			else if (s[i] == '[')
+
+			if (s[i] == '(' || s[i] == '[')
 			{
-				stk.push('[');
+				stk.push(s[i]);
 			}
-			else if (s[i] == ')')
+			else if (s[i] == ')' && !stk.empty() && stk.top() == '(')
 			{
-				if (!stk.empty() && stk.top() == '(')
-				{
-					stk.pop();
-				}
-				else
+				stk.pop();
+			}
+			else if (s[i] == ']' && !stk.empty() && stk.top() == '[')
+			{
+				stk.pop();
+			}
+			else
+			{
+				if (stk.empty())
 				{
 					stk.push('.');
-					break;
 				}
-			}
-			else if (s[i] == ']')
-			{
-				if (!stk.empty() && stk.top() == '[')
-				{
-					stk.pop();
-				}
-				else
-				{
-					stk.push('.');
-					break;
-				}
+				break;
 			}
 		}
 
