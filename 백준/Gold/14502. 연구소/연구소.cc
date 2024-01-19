@@ -1,14 +1,11 @@
-#pragma warning (disable:4996)
-#include <algorithm>
-#include <cmath>
-#include <cstring>
 #include <iostream>
-#include <numeric>
-#include <map>
-#include <queue>
+#include <algorithm>
 #include <vector>
+#include <map>
 #include <stack>
+#include <queue>
 #include <string>
+#include <cstring>
 
 using namespace std;
 using ll = long long;
@@ -17,13 +14,13 @@ using ll = long long;
 int dy[] = { -1,0,1,0 };
 int dx[] = { 0,1,0,-1 };
 
-int n, m, ret;
+int n, m, ret = -2147000000;
 int a[9][9];
 bool visited[9][9];
 vector<pair<int, int>> blank;
 vector<pair<int, int>> virus;
 
-void dfs(int y, int x)
+void SpreadVirus(int y, int x)
 {
 	for (int i = 0; i < 4; i++)
 	{
@@ -46,18 +43,16 @@ void dfs(int y, int x)
 		}
 
 		visited[ny][nx] = true;
-		dfs(ny, nx);
+		SpreadVirus(ny, nx);
 	}
 }
 
-int solve()
+void Solve()
 {
-	memset(visited, false, sizeof(visited));
-
 	for (auto& p : virus)
 	{
 		visited[p.first][p.second] = true;
-		dfs(p.first, p.second);
+		SpreadVirus(p.first, p.second);
 	}
 
 	int cnt = 0;
@@ -72,7 +67,8 @@ int solve()
 		}
 	}
 
-	return cnt;
+	ret = max(ret, cnt);
+	memset(visited, 0, sizeof(visited));
 }
 
 int main()
@@ -86,7 +82,6 @@ int main()
 		for (int j = 0; j < m; j++)
 		{
 			cin >> a[i][j];
-
 			if (a[i][j] == 0)
 			{
 				blank.push_back({ i,j });
@@ -107,7 +102,7 @@ int main()
 				a[blank[i].first][blank[i].second] = 1;
 				a[blank[j].first][blank[j].second] = 1;
 				a[blank[k].first][blank[k].second] = 1;
-				ret = max(ret, solve());
+				Solve();
 				a[blank[i].first][blank[i].second] = 0;
 				a[blank[j].first][blank[j].second] = 0;
 				a[blank[k].first][blank[k].second] = 0;
