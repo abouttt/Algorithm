@@ -3,7 +3,7 @@
 
 using namespace std;
 
-#define FAST_IO ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
+#define FAST_IO ios_base::sync_with_stdio(false);std::cout.tie(NULL);std::cin.tie(NULL);
 
 int main()
 {
@@ -12,21 +12,21 @@ int main()
 	string s;
 	getline(cin, s);
 
-	for (int i = 0; i < s.size(); i++)
+	for (char& c : s)
 	{
-		if (!isalpha(s[i]))
+		if (!isalpha(c))
 		{
 			continue;
 		}
 
-		int na = s[i] + 13;
-		int border = isupper(s[i]) ? 90 : 122;
-		if (na > border)
+		int na = c + 13;
+		int border = isupper(c) ? 'Z' : 'z';
+		if(na > border)
 		{
 			na -= 26;
 		}
 
-		s[i] = na;
+		c = na;
 	}
 
 	cout << s;
